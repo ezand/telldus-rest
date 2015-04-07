@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<groupId>org.ezand</groupId>
 		<artifactId>parent</artifactId>
@@ -11,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ezand.telldus</groupId>
 	<artifactId>telldus-rest</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Telldus - REST</name>
 	<description>REST wrapper around the Telldus CLI (tdtool)</description>
 
@@ -26,7 +24,8 @@
 		<connection>scm:git:git@github.com:ezand/telldus-rest.git</connection>
 		<url>scm:git:git@github.com:ezand/telldus-rest.git</url>
 		<developerConnection>scm:git:git@github.com:ezand/telldus-rest.git</developerConnection>
-	</scm>
+	  <tag>telldus-rest-1.0</tag>
+  </scm>
 
 	<dependencies>
 		<dependency>
@@ -92,7 +91,7 @@
 			<dependency>
 				<groupId>org.ezand.telldus</groupId>
 				<artifactId>telldus-java</artifactId>
-				<version>${telldus-java.version}</version>
+				<version>1.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
