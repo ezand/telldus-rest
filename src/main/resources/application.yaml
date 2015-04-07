@@ -1,5 +1,5 @@
-#telldus:
-#  tdtool: /bin/tdtool
+telldus:
+  tdtool: /bin/tdtool
 
 spring:
   jackson:
