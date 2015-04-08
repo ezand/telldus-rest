@@ -1,5 +1,6 @@
 package org.ezand.telldus.rest.controller;
 
+import static org.ezand.telldus.rest.dto.Result.success;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -8,6 +9,8 @@ import java.util.Optional;
 
 import org.ezand.telldus.cli.data.Device;
 import org.ezand.telldus.cli.repository.TelldusRepository;
+import org.ezand.telldus.rest.dto.Result;
+import org.ezand.telldus.rest.dto.State;
 import org.ezand.telldus.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,33 +29,33 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = {"", "/"}, method = GET)
-	public List<Device> devices() {
-		return repository.getDevices();
+	public Result<List<Device>> devices() {
+		return success(repository.getDevices());
 	}
 
 	@RequestMapping(value = "/{id:\\d*}", method = GET)
-	public Device device(@PathVariable final int id) {
-		return getDistinct(id).orElseThrow(NotFoundException::new);
+	public Result<Device> device(@PathVariable final int id) {
+		return success(getDistinct(id).orElseThrow(NotFoundException::new));
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/state", method = GET)
-	public String state(@PathVariable final int id) {
-		return repository.getDeviceState(id);
+	public Result<State> state(@PathVariable final int id) {
+		return success(new State(repository.getDeviceState(id)));
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/on", method = POST)
-	public boolean turnOn(@PathVariable final int id) {
-		return repository.turnDeviceOn(id);
+	public Result<Boolean> turnOn(@PathVariable final int id) {
+		return success(repository.turnDeviceOn(id));
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/off", method = POST)
-	public boolean turnOff(@PathVariable final int id) {
-		return repository.turnDeviceOff(id);
+	public Result<Boolean> turnOff(@PathVariable final int id) {
+		return success(repository.turnDeviceOff(id));
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/dim/{level:\\d{1,3}}", method = POST)
-	public int dim(@PathVariable final int id, @PathVariable final int level) {
-		return repository.dimDevice(id, level);
+	public Result<Integer> dim(@PathVariable final int id, @PathVariable final int level) {
+		return success(repository.dimDevice(id, level));
 	}
 
 	private Optional<Device> getDistinct(@PathVariable final int id) {

@@ -1,5 +1,6 @@
 package org.ezand.telldus.rest.controller;
 
+import static org.ezand.telldus.rest.dto.Result.success;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Optional;
 
 import org.ezand.telldus.cli.data.Sensor;
 import org.ezand.telldus.cli.repository.TelldusRepository;
+import org.ezand.telldus.rest.dto.Result;
 import org.ezand.telldus.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +27,13 @@ public class SensorController {
 	}
 
 	@RequestMapping(value = {"", "/"}, method = GET)
-	public List<Sensor> sensors() {
-		return repository.getSensors();
+	public Result<List<Sensor>> sensors() {
+		return success(repository.getSensors());
 	}
 
 	@RequestMapping(value = "/{id:\\d*}", method = GET)
-	public Sensor device(@PathVariable final int id) {
-		return getDistinct(id).orElseThrow(NotFoundException::new);
+	public Result<Sensor> device(@PathVariable final int id) {
+		return success(getDistinct(id).orElseThrow(NotFoundException::new));
 	}
 
 	private Optional<Sensor> getDistinct(@PathVariable final int id) {
