@@ -1,6 +1,8 @@
 package org.ezand.telldus.rest.controller;
 
 import static java.lang.String.valueOf;
+import static org.ezand.telldus.cli.data.SwitchState.OFF;
+import static org.ezand.telldus.cli.data.SwitchState.ON;
 import static org.ezand.telldus.cli.data.Type.DIMMER;
 import static org.ezand.telldus.cli.data.Type.SWITCH;
 import static org.ezand.telldus.rest.dto.Result.fail;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// TODO Add read timeout
 @RestController
 @RequestMapping(value = "device")
 public class DeviceController {
@@ -53,28 +56,24 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/on", method = POST)
-	public Result<Boolean> turnOn(@PathVariable final int id) {
-		final boolean successful = repository.turnDeviceOn(id);
-		if (successful) {
-			updateStateCache(id, SWITCH, "on");
-		}
-		return successful ? success() : fail();
+	public Result<State> turnOn(@PathVariable final int id) {
+		final State state = repository.turnDeviceOn(id);
+		updateStateCache(id, SWITCH, state.getState());
+		return state.getState().equals(ON.lowerName()) ? success(state) : fail(state);
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/off", method = POST)
-	public Result<Boolean> turnOff(@PathVariable final int id) {
-		final boolean successful = repository.turnDeviceOff(id);
-		if (successful) {
-			updateStateCache(id, SWITCH, "off");
-		}
-		return successful ? success() : fail();
+	public Result<State> turnOff(@PathVariable final int id) {
+		final State state = repository.turnDeviceOff(id);
+		updateStateCache(id, SWITCH, state.getState());
+		return state.getState().equals(OFF.lowerName()) ? success(state) : fail(state);
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/dim/{level:\\d{1,3}}", method = POST)
-	public Result<Integer> dim(@PathVariable final int id, @PathVariable final int level) {
-		final int dimLevel = repository.dimDevice(id, level);
-		updateStateCache(id, DIMMER, valueOf(dimLevel));
-		return success(dimLevel);
+	public Result<State> dim(@PathVariable final int id, @PathVariable final int level) {
+		final State state = repository.dimDevice(id, level);
+		updateStateCache(id, DIMMER, valueOf(state.getState()));
+		return success(state);
 	}
 
 	private void updateStateCache(final int id, final Type type, final String state) {
