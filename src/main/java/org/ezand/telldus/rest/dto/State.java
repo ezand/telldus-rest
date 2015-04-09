@@ -8,7 +8,7 @@ public class State {
 
 	@JsonCreator
 	public State(@JsonProperty("state") final String state) {
-		this.state = state;
+		this.state = isBoolean(state) ? toBoolean(state) : state;
 	}
 
 	public String getState() {
@@ -20,5 +20,13 @@ public class State {
 		return "State{" +
 				"state='" + state + '\'' +
 				'}';
+	}
+
+	private static boolean isBoolean(final String state) {
+		return state.equalsIgnoreCase("on") || state.equalsIgnoreCase("off");
+	}
+
+	private static String toBoolean(final String state) {
+		return state.toLowerCase();
 	}
 }

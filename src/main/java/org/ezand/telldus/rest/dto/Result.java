@@ -29,6 +29,10 @@ public class Result<T> {
 				'}';
 	}
 
+	public static <T> Result<T> success() {
+		return success(null);
+	}
+
 	public static <T> Result<T> success(final T result) {
 		return new Result<>(true, result);
 	}

@@ -1,5 +1,6 @@
 package org.ezand.telldus.rest.controller;
 
+import static org.ezand.telldus.rest.dto.Result.fail;
 import static org.ezand.telldus.rest.dto.Result.success;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -39,18 +40,18 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/state", method = GET)
-	public Result<State> state(@PathVariable final int id) {
+	public Result<?> state(@PathVariable final int id) {
 		return success(new State(repository.getDeviceState(id)));
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/on", method = POST)
 	public Result<Boolean> turnOn(@PathVariable final int id) {
-		return success(repository.turnDeviceOn(id));
+		return repository.turnDeviceOn(id) ? success() : fail();
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/off", method = POST)
 	public Result<Boolean> turnOff(@PathVariable final int id) {
-		return success(repository.turnDeviceOff(id));
+		return repository.turnDeviceOff(id) ? success() : fail();
 	}
 
 	@RequestMapping(value = "/{id:\\d*}/dim/{level:\\d{1,3}}", method = POST)
