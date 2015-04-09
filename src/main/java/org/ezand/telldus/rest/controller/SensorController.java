@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// TODO add cache??
 @RestController
 @RequestMapping(value = "sensor")
 public class SensorController {
@@ -32,7 +31,7 @@ public class SensorController {
 	}
 
 	@RequestMapping(value = "/{id:\\d*}", method = GET)
-	public Result<Sensor> device(@PathVariable final int id) {
+	public Result<Sensor> sensor(@PathVariable final int id) {
 		return success(getDistinct(id).orElseThrow(NotFoundException::new));
 	}
 

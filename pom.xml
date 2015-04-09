@@ -19,6 +19,7 @@
 		<jackson-datatype-jdk8.version>2.5.2</jackson-datatype-jdk8.version>
 		<jackson-datatype-jsr310.version>2.5.2</jackson-datatype-jsr310.version>
 		<telldus-java.version>1.1-SNAPSHOT</telldus-java.version>
+		<ehcache.version>2.10.0</ehcache.version>
 	</properties>
 
 	<scm>
@@ -35,6 +36,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jdk8</artifactId>
 		</dependency>
@@ -47,6 +53,11 @@
 		<dependency>
 			<groupId>org.ezand.telldus</groupId>
 			<artifactId>telldus-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -93,6 +104,12 @@
 				<groupId>org.ezand.telldus</groupId>
 				<artifactId>telldus-java</artifactId>
 				<version>${telldus-java.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
