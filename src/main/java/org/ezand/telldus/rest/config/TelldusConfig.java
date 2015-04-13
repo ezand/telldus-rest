@@ -4,7 +4,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
 import org.ezand.telldus.cli.repository.CliRepository;
-import org.ezand.telldus.cli.repository.TelldusRepository;
+import org.ezand.telldus.core.repository.TelldusRepository;
 import org.ezand.telldus.rest.settings.TelldusSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.JacksonProperties;

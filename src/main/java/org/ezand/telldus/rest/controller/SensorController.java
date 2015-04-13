@@ -6,8 +6,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import java.util.List;
 import java.util.Optional;
 
-import org.ezand.telldus.cli.data.Sensor;
-import org.ezand.telldus.cli.repository.TelldusRepository;
+import org.ezand.telldus.core.domain.Sensor;
+import org.ezand.telldus.core.repository.TelldusRepository;
 import org.ezand.telldus.rest.dto.Result;
 import org.ezand.telldus.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

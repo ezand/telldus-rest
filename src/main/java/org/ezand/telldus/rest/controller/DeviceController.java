@@ -1,10 +1,10 @@
 package org.ezand.telldus.rest.controller;
 
 import static java.lang.String.valueOf;
-import static org.ezand.telldus.cli.data.SwitchState.OFF;
-import static org.ezand.telldus.cli.data.SwitchState.ON;
-import static org.ezand.telldus.cli.data.Type.DIMMER;
-import static org.ezand.telldus.cli.data.Type.SWITCH;
+import static org.ezand.telldus.core.domain.SwitchState.OFF;
+import static org.ezand.telldus.core.domain.SwitchState.ON;
+import static org.ezand.telldus.core.domain.Type.DIMMER;
+import static org.ezand.telldus.core.domain.Type.SWITCH;
 import static org.ezand.telldus.rest.dto.Result.fail;
 import static org.ezand.telldus.rest.dto.Result.success;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -13,10 +13,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.util.List;
 import java.util.Optional;
 
-import org.ezand.telldus.cli.data.Device;
-import org.ezand.telldus.cli.data.State;
-import org.ezand.telldus.cli.data.Type;
-import org.ezand.telldus.cli.repository.TelldusRepository;
+import org.ezand.telldus.core.domain.Device;
+import org.ezand.telldus.core.domain.State;
+import org.ezand.telldus.core.domain.Type;
+import org.ezand.telldus.core.repository.TelldusRepository;
 import org.ezand.telldus.rest.dto.Result;
 import org.ezand.telldus.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
