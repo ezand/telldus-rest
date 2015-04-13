@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
@@ -17,12 +18,14 @@ public class GlobalExceptionHandler {
 
 	@ResponseStatus(NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
+	@ResponseBody
 	public Result handleNotFound() {
 		return fail();
 	}
 
 	@ResponseStatus(INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Throwable.class)
+	@ResponseBody
 	public Result handleGeneralException(final Throwable t) {
 		LOG.error("Caught a general unhandled exception", t);
 		return fail(t.getMessage());
