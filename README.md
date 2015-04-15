@@ -14,7 +14,9 @@ Rest wrapper around the Telldus CLI (tdtool)
 # Usage
 Start a standalone webapp using the following commando:
 
-    java -jar telldus-rest-<version>.jar --telldus.tdtool=<path_to_tdtoll> --server.port=<port_number> --security.user.name=<username> --security.user.password=<password>
+    java -jar telldus-rest-<version>.jar --telldus.tdtool=<path_to_tdtool> --server.port=<port_number> --security.user.name=<username> --security.user.password=<password>
     
     Ex.:
     java -jar telldus-rest-1.0.jar --telldus.tdtool=/usr/bin/tdtool --server.port=8081 --security.user.name=user --security.user.password=pass
+    
+You can ommit the --server.port=<port_number> to start the webapp at port 8080 by default.

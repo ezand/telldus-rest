@@ -5,3 +5,15 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: false
+
+swagger:
+  apiVersion: v1
+  title: Telldus REST API
+  description: Access Telldus functionality through REST
+  contact: eiriksand@gmail.com
+  license:
+    title: GNU General Public License v3.0
+    url: http://choosealicense.com/licenses/gpl-3.0/
+  packages:
+    controller: org.ezand.telldus.rest.controller
+    model: org.ezand.telldus.core.domain
