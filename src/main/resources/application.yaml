@@ -1,5 +1,9 @@
 telldus:
   tdtool: /bin/tdtool
+  state:
+    switch:
+      case: LOWER
+      serializer: org.ezand.telldus.rest.serializers.OnOffSerializer
 
 spring:
   jackson:

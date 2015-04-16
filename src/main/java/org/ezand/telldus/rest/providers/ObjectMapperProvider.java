@@ -6,10 +6,13 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 import javax.ws.rs.ext.ContextResolver;
 import javax.ws.rs.ext.Provider;
 
+import org.ezand.telldus.core.util.RichBoolean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
 
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 
@@ -18,7 +21,8 @@ public class ObjectMapperProvider implements ContextResolver<ObjectMapper> {
 	private final ObjectMapper mapper;
 
 	@Autowired
-	public ObjectMapperProvider(final JacksonProperties properties) {
+	public ObjectMapperProvider(final JacksonProperties properties,
+								final JsonSerializer<RichBoolean> richBooleanSerialzer) {
 		final ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(NON_EMPTY);
 		mapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -29,7 +33,11 @@ public class ObjectMapperProvider implements ContextResolver<ObjectMapper> {
 		properties.getDeserialization().entrySet().forEach(e ->
 				mapper.configure(e.getKey(), properties.getDeserialization().get(e.getKey())));
 
+		final SimpleModule customSerializersModule = new SimpleModule();
+		customSerializersModule.addSerializer(richBooleanSerialzer);
+
 		mapper.registerModules(
+				customSerializersModule,
 				new Jdk8Module(),
 				new JSR310Module()
 		);

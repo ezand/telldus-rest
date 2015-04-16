@@ -1,10 +1,5 @@
 package org.ezand.telldus.rest.resources;
 
-import static java.lang.String.valueOf;
-import static org.ezand.telldus.core.domain.SwitchState.OFF;
-import static org.ezand.telldus.core.domain.SwitchState.ON;
-import static org.ezand.telldus.core.domain.Type.DIMMER;
-import static org.ezand.telldus.core.domain.Type.SWITCH;
 import static org.ezand.telldus.rest.dto.Result.fail;
 import static org.ezand.telldus.rest.dto.Result.success;
 
@@ -21,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.ezand.telldus.core.domain.Device;
 import org.ezand.telldus.core.domain.State;
-import org.ezand.telldus.core.domain.Type;
 import org.ezand.telldus.core.repository.TelldusRepository;
+import org.ezand.telldus.core.util.RichBoolean;
 import org.ezand.telldus.rest.dto.Result;
 import org.ezand.telldus.rest.exception.ResourceNotFoundException;
 import org.springframework.cache.CacheManager;
@@ -64,39 +59,39 @@ public class DeviceResource {
 	@GET
 	@Path(value = "/{id:\\d*}/state")
 	@ApiOperation(value = "Device state", notes = "Get a specific device by id", response = State.class)
-	public Result<State> state(@PathParam("id") final int id) {
+	public Result<State<?>> state(@PathParam("id") final int id) {
 		return success(repository.getDeviceState(id));
 	}
 
 	@POST
 	@Path("/{id:\\d*}/on")
 	@ApiOperation(value = "Device switch on", notes = "Switch a specific device on", response = State.class)
-	public Result<State> turnOn(@PathParam("id") final int id) {
-		final State state = repository.turnDeviceOn(id);
-		updateStateCache(id, SWITCH, state.getState());
-		return state.getState().equals(ON.lowerName()) ? success(state) : fail(state);
+	public Result<State<RichBoolean>> turnOn(@PathParam("id") final int id) {
+		final State<RichBoolean> state = repository.turnDeviceOn(id);
+		updateStateCache(id, state);
+		return state.getState().isPositive() ? success(state) : fail(state);
 	}
 
 	@POST
 	@Path(value = "/{id:\\d*}/off")
 	@ApiOperation(value = "Device switch off", notes = "Switch a specific device off", response = State.class)
-	public Result<State> turnOff(@PathParam("id") final int id) {
-		final State state = repository.turnDeviceOff(id);
-		updateStateCache(id, SWITCH, state.getState());
-		return state.getState().equals(OFF.lowerName()) ? success(state) : fail(state);
+	public Result<State<RichBoolean>> turnOff(@PathParam("id") final int id) {
+		final State<RichBoolean> state = repository.turnDeviceOff(id);
+		updateStateCache(id, state);
+		return state.getState().isPositive() ? success(state) : fail(state);
 	}
 
 	@POST
 	@Path(value = "/{id:\\d*}/dim/{level:\\d{1,3}}")
 	@ApiOperation(value = "Dim device", notes = "Dim a specific device to specified level", response = State.class)
-	public Result<State> dim(@PathParam("id") final int id, @PathParam("level") final int level) {
-		final State state = repository.dimDevice(id, level);
-		updateStateCache(id, DIMMER, valueOf(state.getState()));
+	public Result<State<String>> dim(@PathParam("id") final int id, @PathParam("level") final int level) {
+		final State<String> state = repository.dimDevice(id, level);
+		updateStateCache(id, state);
 		return success(state);
 	}
 
-	private void updateStateCache(final int id, final Type type, final String state) {
-		cacheManager.getCache("stateCache").put(id, new Result<>(true, new State(type, state)));
+	private void updateStateCache(final int id, final State<?> state) {
+		cacheManager.getCache("stateCache").put(id, new Result<>(true, state));
 	}
 
 	private Optional<Device> getDistinct(@PathParam("id") final int id) {
