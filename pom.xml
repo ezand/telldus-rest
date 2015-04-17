@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.ezand</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0</version>
+		<version>1.4</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -14,12 +14,17 @@
 	<description>REST wrapper around the Telldus CLI (tdtool)</description>
 
 	<properties>
-		<telldus-java.version>1.2</telldus-java.version>
+		<telldus-java.version>1.4</telldus-java.version>
 		<spring-boot.version>1.2.3.RELEASE</spring-boot.version>
 		<jackson-datatype-jdk8.version>2.5.2</jackson-datatype-jdk8.version>
 		<jackson-datatype-jsr310.version>2.5.2</jackson-datatype-jsr310.version>
 		<ehcache.version>2.10.0</ehcache.version>
 	</properties>
+
+	<issueManagement>
+		<url>https://github.com/ezand/telldus-rest/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 
 	<scm>
 		<connection>scm:git:git@github.com:ezand/telldus-rest.git</connection>
