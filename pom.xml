@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.ezand.telldus</groupId>
 	<artifactId>telldus-rest</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.4</version>
 	<name>Telldus - REST</name>
 	<description>REST wrapper around the Telldus CLI (tdtool)</description>
 
@@ -30,7 +30,7 @@
 		<connection>scm:git:git@github.com:ezand/telldus-rest.git</connection>
 		<url>scm:git:git@github.com:ezand/telldus-rest.git</url>
 		<developerConnection>scm:git:git@github.com:ezand/telldus-rest.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>telldus-rest-1.4</tag>
 	</scm>
 
 	<dependencies>
